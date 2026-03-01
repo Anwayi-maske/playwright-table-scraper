@@ -1,0 +1,23 @@
+name: Scrape Table Sums (23f2003992@ds.study.iitm.ac.in)
+
+on: [push, workflow_dispatch]  # Runs on push or manual trigger
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install Playwright and dependencies
+        run: |
+          npm init -y
+          npm install playwright
+          npx playwright install --with-deps  # Installs browsers + system deps
+      
+      - name: Run scraper for 23f2003992@ds.study.iitm.ac.in
+        run: node scrape-tables.js
